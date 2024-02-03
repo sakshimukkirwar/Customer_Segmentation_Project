@@ -1,0 +1,463 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{appendix}
+\usepackage{float}
+
+
+\makeatletter
+\newcommand{\linebreakand}{%
+  \end{@IEEEauthorhalign}
+  \hfill\mbox{}\par
+  \mbox{}\hfill\begin{@IEEEauthorhalign}
+}
+\makeatother
+
+\begin{document}
+
+\title{Customer Segmentation and Analysis using \\ Yelp Reviews Dataset}
+
+\author{
+  \IEEEauthorblockN{Akanksha Tyagi}
+  \IEEEauthorblockA{Department of Applied Data Science \\ San Jose State University}
+  \and
+  \IEEEauthorblockN{Anjali Ojha}
+  \IEEEauthorblockA{Department of Applied Data Science \\ San Jose State University}
+  \and
+  \IEEEauthorblockN{Sakshi Mukkirwar}
+  \IEEEauthorblockA{Department of Applied Data Science \\ San Jose State University}
+  \linebreakand
+  \IEEEauthorblockN{Swati}
+  \IEEEauthorblockA{Department of Applied Data Science \\ San Jose State University}
+  \and
+  \IEEEauthorblockN{Keerthana Raskatla}
+  \IEEEauthorblockA{Department of Applied Data Science \\ San Jose State University}
+}
+
+
+\maketitle
+\begin{abstract}
+  In today's data-driven world, restaurants strive to acquire a competitive advantage by analyzing diner preferences and behavior. Yelp, as a platform for user-generated reviews and ratings of businesses, offers a rich source of data that can be leveraged to understand customer behaviors and preferences. The Yelp restaurant reviews dataset, which contains millions of diner reviews, ratings, and restaurant profiles, customers' profile, their social networks, is a significant resource for such customer insights. This research highlights our intention to use Big Data Analytics to do consumer segmentation utilizing this rich Yelp dataset.   
+  As the size of data grows, identifying a segment with desired attributes is a core problem of any  Big Data Marketing application. As part of our Big-Data Applications project, we are going to explore the Yelp Restaurant Reviews dataset and find out how we can make segmentation more effective and fast. As the data size keeps increasing, querying a large amount of data becomes very time-consuming and computationally expensive. For any modern marketing system having a great segmentation engine increases the time to market.
+  \end{abstract}
+  
+\begin{IEEEkeywords}
+Yelp, Big Data Analytics, Consumer segmentation, Restaurant
+\end{IEEEkeywords}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{INTRODUCTION}
+In an increasingly competitive business landscape, understanding customer's preferences, behaviors, and sentiments has become pivotal for companies striving to provide personalized experiences and targeted services. Customer segmentation involes segregating customer into separate groups that are homogeneous in themselves \cite{tsiptsis}. The Yelp dataset, a rich repository of user-generated reviews and ratings, offers an extensive platform for businesses to glean valuable insights into customer sentiments and behaviors. In today's data-driven world, businesses strive to acquire a competitive advantage by analyzing customer's preferences and behavior. Through the extensive data available on Yelp, this study employs advanced data analytics techniques to decode customer behaviors, preferences, and sentiments related to their experiences, and Yelp gave users a platform to register their views. Although Yelp has data collected from different market segments, but the food, dining, and restaurant segment dominates that. We can see the same in the figure below and we are only plotting the top 30 categories using 1.0 percent of the data sample.
+
+\begin{figure}
+   \centering
+  \includegraphics[scale=0.3]{dist.png}
+  \caption{Market Segment Distribution, for the top 30 categories using 1.0 percent of the data sample}
+\end{figure}
+
+
+This study utilizes advanced analytics to uncover intricate customer behaviors, preferences, and what they think of regarding dining in the Yelp dataset. It goes beyond conventional analysis to implement sophisticated segmentation, identifying distinct customer groups based on nuanced preferences. The aim is two-fold, not only deciphering complex customer sentiment patterns but also generating actionable insights to help businesses tailor their offerings. This facilitates increased satisfaction and loyalty in a dynamic market. In essence, the research strives to both decode subtle dining preferences through advanced segmentation and translate the findings into practical guidance that enables businesses to better serve diverse customers \cite{business_needs}.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\section{SIGNIFICANCE TO THE REAL WORLD}
+The project illustrates the real-world significance of Big Data technologies by showing how they empower businesses to make data-driven decisions, improve operational efficiency, and gain a competitive edge \cite{analytics}. Adopting reliable and highly resilient programs like Kafka and Hadoop, helps businesses cope with enormous amounts of information, therefore making operations more efficient \cite{agnee} \cite{mapreduce}. Data warehousing from the cloud can do on-demand scalability cheaply, as well as process massive amounts of information. Using tools such as Apache Spark and Tableau helps one get actionable insights that can build customer customer-centric strategy that ultimately drives innovation. Ultimately, the research shows how large-scale, diverse Yelp data must be handled with efficient data management techniques.  Overall, this project has the potential to make a significant impact on the restaurant industry and beyond by providing valuable insights into customer behavior and preferences.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{MOTIVATION}
+The primary objective for this research project lies in the ever-increasing significance of data-informed decision-making within the contemporary business landscape. The Yelp dataset encapsulates invaluable insights regarding businesses, user reviews, and user profiles. It has a comprehensive array of business details, encompassing names, locations, attributes, and categories, as well as user reviews containing both star ratings and textual content. Moreover, user profiles furnish detailed reviewer information, inclusive of names, review counts, and voting statistics. The dataset further extends to cover check-in records, tips, and business-related photos. This comprehensive repository presents businesses with an unparalleled opportunity to leverage data insights for a nuanced understanding of customer behaviors and preferences.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{LITERATURE SURVEY}
+The surge of online platforms and user-generated content has granted researchers and businesses unprecedented access to valuable data sources. Among these, the Yelp dataset, primarily housing restaurant reviews and ratings, has garnered significant attention in the realm of Big Data analytics. According to \cite{b1}, their research focused on developing effective recommendation systems to combat the prevalent information overload witnessed on review websites. Employing a modified Latent Aspect Rating Analysis \cite{latent} technique, the study identified five notable features. Particularly noteworthy was their emphasis on the influential role of "restaurant value" and "food and drinks" in shaping sentiment and satisfaction levels. The authors advocated for dynamic recommendation systems that account for attribute-specific evaluations, aiming to enhance the user experience while navigating through extensive review data.
+In the research done by \cite{b2}, findings underscored the influence of reviewer credibility on reader perception, demonstrating the potential of big data analytics in extracting insights from extensive online review databases to guide consumer decision-making.
+The study performed by \cite{b3} revealed the significance of framing, argument quality, and moderate ratings in eliciting reader engagement. This exploration shed light on the amplifying role of heuristics in the impact of evaluations and the consequential value they add to the platform.
+
+According to a study by \cite{b4}, a pioneering market segmentation approach was introduced, utilizing online consumer reviews to profile both customers and businesses. Their innovative methodology offered comprehensive insights for focused segmentation strategies on social media, capitalizing on publicly available consumption details embedded within online reviews.
+The research by \cite{ramaswamy} concentrates on utilizing recommendation system principles to construct a predictive model for forecasting customer ratings of un-visited businesses. It harnesses Yelp's expansive data to extract collaborative and content-based features for discerning customer and restaurant profiles. Various models including generalized regression, ensembles, collaborative filtering, and factorization machines are applied. Root Mean Squared Error(RMSE) evaluation enables comparative analysis of model effectiveness. For cold start issues \cite{cold_start}, segmentation ensembles and three imputation techniques - mean, random, and predicted values - tackle missing information. 
+
+In summary, this comprehensive study leverages recommendation approaches on rich Yelp data to predict ratings via an array of models, evaluated through RMSE. Segmentation and imputation address cold start and missing data challenges.
+The study in \cite{fotaki} investigates the convergence of Online Marketing, Customer Segmentation, and Big Data Analytics amidst today's highly competitive online business landscape. It highlights the growing importance of online marketing strategies for customer engagement in the digital realm. The study underscores performing customer segmentation based on online data and addresses the formidable challenges posed by the massive data volumes, which can be managed and analyzed through Big Data technologies. An Online Customer Segmentation (OCS) framework is presented to demonstrate how Big Data tools can support online marketing goals. The framework outlines key online marketing objectives, contrasts offline and online customer attributes, defines OCS categories, and introduces relevant Big Data concepts and tools \cite{analytics}. A hypothetical business scenario applies the OCS framework on an online customer dataset to illustrate its implementation. In summary, this paper provides an OCS framework exemplifying how Big Data analytics can enable effective online marketing and customer segmentation amidst expansive online data.
+
+These studies collectively highlight the potential of the Yelp dataset, showcasing its relevance in understanding customer segmentation and behaviors, and its transformative impact on businesses through data-driven insights. This literature survey serves as a foundational cornerstone for our project.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{PROJECT OVERVIEW AND ARCHITECTURE}
+In the project, we employ a robust Big Data technology stack that helps in processing and analyzing complex and huge Yelp datasets. The most critical aspect of our system design is the cloud, and we are using Amazon Web Services for all our needs. It is the place where the data is kept and processed. With regards to handling and processing large volumes of varied data, distributed computing with Spark enables this. Kafka brokers provide an effective and prompt mechanism for handling streaming data in real time. This is how all types of data, such as reviews, check-ins, and tips come in the form of streams and we incrementally process those datasets.
+
+\begin{figure*}[h]
+  \centering
+  \includegraphics[width=\textwidth,height=3.5in]{sys-architecture.png}
+  \caption{System Architecture Diagram And Setup in cluster}
+\end{figure*}
+
+The user-friendly feature of Amazon S3 is its ability to scale up and down. It is also a distributed file system and it's an extension of the Hadoop File System. This way provides us with a secure and reliable methodology for storing our static and processed files that comprise all data concerning businesses and users. Data processing is done using Apache Spark, recognized for its high-speed in-memory computing. Spark helps us in handling our tasks related to data processing such as aggregation or trait extraction by speeding up the work. The data gets stored in a data store of Snowflake for faster analytics and also in parquet file format, which will later be used in the hive tables to extract final segments. 
+
+Snowflake offers cloud-based data warehousing capabilities while Hive allows users to do queries and processing on extremely big datasets using a SQL-like language. We use Tableau, which visualizes our data; and it matches well with our data stores. The dashboard allows us to view and communicate with visualizations, which enables an understanding of how the various types of customers relate. All intermediate datasets are also stored in cluster, but in parquet format for easy retrieval when needed. This is necessary in order to achieve speedy and effective data processing.
+
+We also built a Streamlit app to visualize how each slicing and dicing of the data changes the desired segment. We put a widget to capture all the filters and data exploration in the form of a query, and later that query can be executed against the raw parquet files to extract the desired segment.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{DATA, TOOLS AND TECHNOLOGIES}
+
+\subsection{Dataset}
+This project utilizes over six million reviews on thousands of restaurants in eleven cities taken out of Yelp. This is a key dataset consisting of information from 1,987,897 customers contributed through purchases that have been packaged in compressed \textbf{.tar} files approximately weighing 11.8GB. In the JSON format, each file contains an isolated object type. The JSON objects are in one line. This comprehensive database provides details on different restaurant profiles offering detailed information on served foods, atmosphere, and others. In addition, the dataset goes into depth about customers’ demographics, behavioral characteristics, and many more aspects. This dataset should be noted that it is not an artificial and simulated one, but it has been obtained from real business and reviews. Thus, we have the chance to look at how restaurants and businesses are struggling in the competitive situation and environment of online reviews and customer engagement \cite{engagement}. The realism of the dataset becomes the central issue as we move forward to analyze it. It is this realism that ensures that our findings and conclusions rest on the authentic experience of all of us. 
+
+Table \ref{table:dataset_details} has all the dataset level details \cite{}.
+
+\begin{table}[htbp]
+ \renewcommand{\arraystretch}{1.5}
+  \label{table:dataset_details}
+  \caption{Yelp Data Details}
+  \begin{tabular}{|p{2.0in}|p{1.0in}|}
+    \hline 
+    \textbf{Dataset Name} & \textbf{Number of Records} \\
+    \hline
+    \hline
+    yelp\_academic\_dataset\_business.json & 150346 \\
+    \hline
+    yelp\_academic\_dataset\_user.json & 1987897 \\
+    \hline
+    yelp\_academic\_dataset\_checkin.json & 131930 \\ 
+    \hline
+    yelp\_academic\_dataset\_review.json & 6990280 \\
+    \hline
+    yelp\_academic\_dataset\_tip.json &  908915 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+\subsection{Data Cleaning and Processing}
+All the datasets are in JSON format and 1 file for each dataset mentioned above. It was fairly easy to load the data with spark into the dataframe, but on further analysis, we can see how the different attributes for different entities are being captured and we have to bring each of the attributes for the entity as a common format. This common format helped in extracting the desired attributes easily. As the data was quite big, we had to use sampling while maintaining the relations with other entities to avoid data sparsity.
+
+\subsection{Feature Engineering}
+The Yelp data is quite extensive and so much can be learned from this data alone. The other data sets on top of the reviews help to understand user behaviors. For our application, we explore users' likes and dislikes, user demographics (where they live), their behaviors (where they frequently travel, how they express their sentiments, how they rate each business category, and their social network). For customer segmentation, all this information is helpful for marketers to reach their targeted audience. 
+\begin{figure}[H]
+    \label{fig:sentiment}
+    \centering
+    \includegraphics[scale=0.3]{sentiments.png}
+    \caption{Distribution of the sentiments from the review}
+\end{figure}
+
+\subsection{Exploratory Data Analysis}
+Once we extracted the desired features for our use case, we did the data analysis using Tableau. As the size of the data was huge, we picked the top 1 percent (based on the number of reviews) of the users and analyzed their behaviors. This shows how the data is skewed for the food and restaurants compared to other categories, and how people tend to give higher ratings. We can see the distribution of the reviews in the figure-\ref{fig:sentiment}. 
+
+
+\subsection{Visualizations}
+We created multiple visualizations using Tableau and Streamlit. We use these visualizations to find the patterns in the data and understand the data. In figure \ref{sentiment_graph}, we show the change of sentiments over time. In figure \ref{review_trends}, we show how many reviews are received in each year. Figure \ref{review_counts} shows the frequency distribution of review counts by user activity. We also show the correlation of different sentiments of reviews in figure \ref{correlation}.
+
+
+\begin{figure}[h]
+    \label{sentiment_graph}
+    \centering
+    \includegraphics[scale=0.3]{sentiment_graph.png}
+    \caption{Distribution of the sentiments every year.}
+\end{figure}
+
+\begin{figure}[h]
+    \label{review_trends}
+    \centering
+    \includegraphics[scale=0.3]{review_trends.png}
+    \caption{Distribution of the review over time.}
+\end{figure}
+
+\begin{figure*}[h]
+    \label{review_counts}
+    \centering
+    \includegraphics[width=\textwidth, height=3in]{review_counts.png}
+    \caption{Frequency distribution of review counts by user activity.}
+\end{figure*}
+
+\begin{figure}[h]
+    \label{correlation}
+    \centering
+    \includegraphics[scale=0.3]{correlation.png}
+    \caption{Correlation of different sentiments.}
+\end{figure}
+
+Table \ref{table:tools_and_tech} had the full list of tools and technologies we used for this project. i
+
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.5}
+    \caption{Tools And Technology Used}
+    \label{table:tools_and_tech}
+    \begin{tabular}{|p{1.0in}|p{2.0in}|}
+    \hline
+    \textbf{Tools } & \textbf{Usage} \\ 
+    \hline
+    \hline
+    Python & Main coding language for all the development tasks \\
+    \hline
+    Spark & For all data processing \\ 
+    \hline
+    Kafka & To ingest the review data as stream \\ 
+    \hline
+    Snowflake & For data warehousing, for the purpose of Visualization and EDA. Use SQL to fetch the desired data.  \\
+    \hline
+    Tableau & Data Visualization and Data Analysis  \\
+    \hline
+    Streamlit & To build a data app for demo purposes and hosting.  \\
+    \hline
+    AWS & As main cloud infrastructure where all jobs run. EC2 machine for the deployment. \\
+    \hline
+    S3 Hadoop & For data storage in the cluster. \\
+    \hline
+    Parquet & We use Parquet format for all the intermediate data storage \\
+    \hline
+    GitHub and Copilot & For code collaboration and Pair programming \\
+    \hline
+    Overleaf (Latex) and Grammarly & Report Writing and Proof Reading \\
+    \hline
+    Prezi and Google Slides & Presentation and different diagram creation \\
+    \hline
+    Trello & For Agile practice \\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --
+
+
+\section{TECHNICAL DIFFICULTIES}
+The Yelp dataset, characterized by its user-generated and customer-facing nature, presents analytical challenges. Even though the data was given in proper JSON form, it had its own challenges. The overarching challenge lies in balancing preprocessing, efficiency, and scalability to extract meaningful insights from the voluminous and diverse dataset. We can put these difficulties in the following categories. 
+
+
+% Addressing the dataset's extensive scale and diversity, which spans text, locations, and profiles, requires sophisticated preparation, including NLP for text processing, spatial management for locations, and handling mixed data types in profiles.
+
+
+\subsection{Scale of the Data}
+The sheer scale necessitates strategic sampling to glean meaningful insights within system constraints before scaling up to the full dataset. The data size of 10+ GB at disk, once loaded in the memory for processing it grows even more, and processing that entire on local development instances was difficult. 
+    
+\subsection{Data Sparsity}  
+The data here is collected using many users and businesses and it a generalized data for different market segments which makes it sparse for all the attributes. Also, there is further sparsity resulting from incomplete samples requires focused analysis of smaller, filtered segments to facilitate pattern identification. To get a good sample of have to check it against all the other datasets and extract meaningful insights needs a lot more work. Even after good sampling, other important fields were missing. 
+
+\subsection{Unstructured Data} 
+The unstructured JSON format introduces complexities, demanding custom transformations for analytical accessibility, especially in handling categories and business attributes with varying structures. We have carefully processed multiple records to get a standard schema for the datasets. For example, the attributes field in the business dataset has many values and each value changes the context of the business. We have to write manual schemas to convert each to a common format.
+
+\subsection{Data Representation} 
+As the Yelp dataset has a lot of features we were adding more derived attributes like Sentiment, social group size, frequent words, etc., on top of it, which resulted in added complexity. We are creating a data cube by merging all attributes in one big table, which creates higher dimensional data, to save the same in the traditional storage system, we have to use complex data structures and it helped us keep the size manageable but impacting the data reads for visualization and analysis. 
+
+\begin{figure*}[h]
+  \centering
+  \includegraphics[width=\textwidth,height=2in]{slice.png}
+  \caption{Data Cube Slicing and Dicing }
+\end{figure*}
+
+\subsection{Resource Constraints} 
+As the Yelp data is big in size and is also skewed for popular users or businesses, we have limited processing capabilities, and we have to face a lot of \textit{Java Out Of Memory exceptions} while processing the data. We show the skewness of data in figure \ref{skewness}. As we flattened the data across multiple categories, it was calculated more than 100 million combinations, and these issues are very hard to debug. 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3in]{skewness.png}
+  \caption{Data skewness }
+\end{figure}
+
+\subsection{Integration and Cloud Setup} 
+As there are many tools involved in the project, integrating all of them into a single project has its own challenges. Finding the right versions for each dependency is difficult, in our project, we have to deal with Kafka, Snowflake, AWS S3, Spark, Python, NLTK, streamlit, and Hadoop dependencies, we have to do a lot of searching and trial and error to address these issues. Compounding these issues with the setup in the cloud makes it more challenging. 
+    
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{TEAM WORK}
+
+During the course of the project, each member was involved during each step of the project development, design and implementation. But we divide the responsibilities that who will lead what aspect of the project and the person will be responsible for the delivery of that module. 
+
+\begin{table}[h]
+    \renewcommand{\arraystretch}{1.3}
+  \small  % Set the font size too small
+  \caption{Team Members and Roles}
+  \begin{tabular}{|p{1.0in}|p{2.0in}|}
+    \hline
+    \textbf{Team Member} & \textbf{Role and Responsibilities} \\
+    \hline
+    \hline
+    Akanksha Tyagi & 
+        \begin{itemize}
+          \item Conceptualization and Formal Analysis
+          \item Exploratory data analysis with Spark.
+          \item Set up Kafka jobs for consuming streaming data and storage.
+          \item Jira Board (Trello) Management.
+        \end{itemize}
+        \\
+    
+    \hline
+    Sakshi Manish Mukkirwar & 
+        \begin{itemize}
+          \item Visualization with Tableau.
+          \item Streamlit app setup with different graphs and queries.
+          \item Presentation slides.
+        \end{itemize}
+        \\
+        
+    \hline
+    Swati Verma & 
+        \begin{itemize}
+          \item Investigation of data to identify useful attributes for targets.
+          \item Generate Features for Segmentation.
+          \item Writing – Original Draft, and overleaf setup.
+        \end{itemize}
+        \\
+    
+    \hline
+    Keerthana Raskatla & 
+        \begin{itemize}
+          \item Data Curation and  Refining Data.
+          \item Wrote jobs for data cleaning and processing. 
+          \item System architecture and other diagrams. 
+        \end{itemize}
+        \\
+    
+    \hline
+    Anjali Himanshu Ojha & 
+        \begin{itemize}
+          \item Methodology - created a pipeline to bring all processes together.
+          \item Resources - setup cluster, GitHub, and Streamlit app deployment.
+          \item Writing – Review  Editing, and experiment with Github-Copilot.
+        \end{itemize}
+        \\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{NOVELTY UNIQUENESS}
+This project uniquely leverages real-world Yelp data to benefit businesses through an exploration extending beyond analysis. Our approach is tailored to businesses' distinct needs and goals. Focusing on restaurants, we recognize their specific challenges and opportunities with online reviews and customer engagement. The project encompasses all customer-related data, including demographics and behaviors, structured as data cubes. Diverging from conventional analyses, our project aims to deliver actionable, tailored strategies to empower restaurants in effectively targeting and engaging their audience. Rather than mere analytics, our solution is designed end-to-end to provide restaurants with practical insights and guidance by delving into their nuanced customer data.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{RELEVANCE TO THE COURSE}
+Throughout the project, we adhered to a structured process aligning with course teachings. The project began with a thorough assessment of the Yelp dataset to understand its structure and contents, aligning with the course's focus on managing and analyzing large data volumes. We then leveraged Apache Kafka for data ingestion and we utilized Amazon S3 and Hadoop for storage, with Apache Spark for data processing, practicing the distributed and parallel processing emphasized in the course. This comprehensive use of big data technologies culminated in the deployment of our analytics on Snowflake and the creation of insightful visualizations with Tableau, ensuring that every phase of the project was a practical application of the big data concepts and tools discussed in the course.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{INNOVATION}
+The project's novelty is derived from its adept incorporation of several contemporary data processing technologies for the purpose of analyzing and interpreting enormous quantities of disparate data. The system acquires raw data from several input sources, including Kafka Brokers and static data sets. It leverages the storage and processing capabilities of Amazon Web Services, which offer robustness and scalability. Hadoop and Apache Spark are utilized for the purpose of executing distributed data processing, hence facilitating the effective management of intricate analytics activities. 
+
+The project distinguishes itself through the consolidation of many data kinds, encompassing client preferences, social traits, and location information. These data are then saved in Snowflake, a cloud-based data platform renowned for its exceptional performance and user-friendly interface. The processed data is utilized in various programs such as the Tableau Dashboard, which enables visual analytics, and Hive, which supports data warehousing. These apps play a crucial role in supporting valuable consumer segmentation and enhancing corporate intelligence. The integration of different technologies in an effective way signifies a notable progression in frameworks for making decisions based on data, indicating a comprehensive comprehension of the immense potential of Big Data in revolutionizing company strategies and results.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{IMPACT}
+The project leverages a robust big data infrastructure to efficiently process diverse data streams, utilizing Kafka, Hadoop, Spark, and cloud storage solutions like Amazon S3 and Snowflake which is used to organize and analyze large amounts of data, making it easier for businesses to understand their customers and make more informed decisions. The ultimate goal was to provide businesses with more knowledge about what's going on in their industry so they could better service their consumers, close deals, and stay ahead of the competition. Modern technology, which can process large amounts of data and expand with the needs of the company, was used to do all of this.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{LESSON LEARNT}
+
+For any big data project data and how we are going to use it are two main ideas that drive all the requirements around it. If data is used for visualization, then aggregates will be required and any relational database solution will work. But in our project, we are allowing users to create segments after drilling down the data and its analysis. The final output has to be a segment with a list of users who can be targeted. 
+
+While don't do the development we can't work with the full scale of the data, so we have to sample it. A good sample goes a long way keeping all the relations in the data, it is small enough that can be handled on the laptop but diverse enough to capture all the nuances of the data. It saves a lot of time and computing resources, and we can so many ideas with the small data.  However, creating such a diverse sample is itself challenging and it takes a lot of time and a full understanding of the domain and data.
+
+Real-world data is not a CSV file which nicely curated and we have to use it in our processing. A large chunk of effort goes into the cleaning and curation of the data itself. We learn this by analyzing the Yelp data set and what will be the best format for our use case. So we have to spend a lot of time on the data cleaning and putting it in the standard format. Once data is cleaned it's easy to work with.
+
+This project taught us that Big Data technologies require a variety of tools and methods to evaluate vast and complicated datasets. Using Kafka for data ingestion with Amazon S3 and Hadoop for storage and processing allows the system to manage massive volumes and maintain fault tolerance. In-memory processing makes Apache Spark suitable for complicated, large-scale analytics workloads by transforming and aggregating data. The integration of Snowflake shows the scalability, administration, and cost-effectiveness of cloud-based data warehousing. Tableau for visual analytics emphasizes the importance of turning data into visual insights for business decision-making. This shows the necessity of choosing the correct Big Data technologies to construct a durable, efficient, and comprehensive analytics platform for data-driven decision-making.
+
+We also learn to work with contained resources. While working with small data we get careless about how the system gonna handle that, but during this project, we learn we are not always gonna get endless resources and we need to optimize our jobs to handle that. We also learned to deploy a full-fledged app to the different environments. We deployed a Streamlit app to demonstrate how the segmentation will work.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{PAIR PROGRAMMING}
+Pair programming improved our project's progress. We carefully designed and reviewed our data processing application code in pairs to ensure reliability and quality. Integrating Kafka, Hadoop, and Spark was complicated, therefore this collaborative approach was invaluable. We ensured data analysis algorithm correctness and accelerated problem-solving by switching between driver and navigator roles. Pair programming helped us exchange knowledge and insights regarding our project's data architecture, boosting team competence and cohesion.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{DISCUSSIONS AND CONCLUSIONS}
+As we conclude our project, our data processing platform has greatly improved enterprises' data interaction and understanding. This project has shown us the power of real-time data processing and analytics. We've built a solid infrastructure that satisfies our initial goals and scales for our data-driven demands using Kafka, Hadoop, Spark, Amazon S3, and Snowflake. Pair programming helped us maintain high-quality code and collaborate. It helped us easily combine multiple technologies and efficiently handle complicated data structures. Our data research has helped organizations make better decisions and better meet client needs. But every enterprise has its obstacles. We solved data consistency and integration problems with adaptive problem-solving and collective expertise. These experiences have deepened our grasp of big data difficulties and prepared us for future complications. Moving forward, we see room for improvement. Machine learning methods for predictive analytics and advanced data visualization techniques could provide value. 
+
+\begin{thebibliography}{00}
+\bibitem{analytics} Srinivasa, S., Bhatnagar, V. (2012) Big Data Analytics. Berlin: Springer.
+\bibitem{agnee} Agneeswaran, V. S. (2012). Big-Data : Theoretical, Engineering and Analytics Perspective. In Big Data Analytics (pp. 8-15). Berlin Heidelberg: Springer.
+\bibitem{mapreduce} MapReduce: simplified data processing on large
+clusters. Communications of the ACM, 51(1), 107-113.
+\bibitem{b1} Luo, Y., Tang, L. (Rebecca), Kim, E., and Wang, X. (2020). Finding the reviews on Yelp that actually matter to me: Innovative approach of improving recommender systems.
+\bibitem{b2} Lee, M., Kwon, W., and Back, K.-J. (2021). Artificial intelligence for hospitality big data analytics: developing a prediction model of restaurant review helpfulness for customer decision-making.
+\bibitem{b3} Meek, S., Wilk, V., and Lambert, C. (2021). A big data exploration of the informational and normative influences on the helpfulness of online restaurant reviews.
+\bibitem{b4} Moon, S., Jalali, N., and Erevelles, S. (2021). Segmentation of both reviewers and businesses on social media.
+\bibitem{latent} Hongning Wang, Yue Lu, and Chengxiang Zhai. 2010. Latent aspect rating analysis on review text data: a rating regression approach. In Proceedings of the 16th ACM SIGKDD international conference on Knowledge discovery and data mining (KDD '10). Association for Computing Machinery, New York, NY, USA, 783–792. https://doi.org/10.1145/1835804.1835903.
+\bibitem{fotaki} Fotaki, Georgia \& Spruit, Marco \& Brinkkemper, Sjaak \& Meijer, Dion. (2014). Exploring Big Data Opportunities for Online Customer Segmentation. International Journal of Business Intelligence Research. 5. 58-75. 10.4018/ijbir.2014070105. 
+\bibitem{engagement} Fotaki, G., Gkerpini, N., Triantou, A, I., Brinkkemper, S. (2012). Online Customer Engagement Management. Utrecht University.
+\bibitem{ramaswamy} Ting, J., \& Ramaswamy, S. I. (2013). Yelp Recommendation System.
+\bibitem{tsiptsis} Tsiptsis, K., \& Chorianopoulos, A. (2009). Data Mining Techniques in CRM: Inside Customer
+Segmentation. Wiley.
+\bibitem{business_needs} Lee, J., \& Park, S. (2005). Intelligent profitable customers’ segmentation system based on business intelligence tools. Expert Systems with Applications, 29(1), 145–152.
+\bibitem{cold_start} Padilla, N., \& Ascarza, E. (2021). Overcoming the Cold Start Problem of Customer Relationship Management Using  a Probabilistic Machine Learning Approach. Journal of Marketing Research, 58(5), 981-1006. https://doi.org/10.1177/00222437211032938.
+
+\end{thebibliography}
+\vspace{12pt}
+
+
+\appendix
+
+\subsection{Rubric}
+\textbf{Abstract} - The abstract conveys an overview of the key aspects of a document. It serves as a brief yet comprehensive representation to quickly grasp the essential content.
+
+\textbf{Motivation}-It serves as a catalyst for sustained effort in the face of challenges, influencing both the initiation and persistence of actions.
+
+\textbf{Literature Survey}-The literature survey involves a comprehensive review and analysis of existing scholarly works and publications within a specific field.
+
+\textbf{Methodology} - The methodology details our infrastructure for the project along with the step-by-step of the project's progress.
+
+\textbf{Team members and their roles} - Team members with their respective responsibilities are present.
+
+\textbf{Relevance to the Course} - This project is aligned to the course Big Data.
+
+\textbf{Technical Difficulty} - We faced multiple challenges which were resolved.
+
+\textbf{Novelty Uniqueness} - We used strategies to empower restaurants in effectively targeting and engaging their audience.
+
+\textbf{Lesson Learned}- Learnt variety of tools and methods to evaluate vast and complicated datasets.
+
+\textbf{Grammarly} - We used Grammarly for perfection in our writing. The screenshot is included in the document shared.
+
+\textbf{Agile} - We included a Trello screenshot in the document shared. \url{https://trello.com/b/s04B5dOQ/msda228bigdata}
+
+\textbf{Version Control} - We used GitHub and copilot. The screenshot is included in the document shared.
+
+\textbf{Impact} - Leveraged robust big data infrastructure to efficiently process diverse data streams with the help of many tools to handle vast amounts of data.
+
+
+\textbf{Github} \url{https://github.com/anjali-ojha/customer_segmentation}
+
+
+
+\end{document}
